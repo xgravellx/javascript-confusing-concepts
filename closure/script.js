@@ -36,3 +36,26 @@ const sayacIslemleri = () => {
 
 }
 sayacIslemleri();
+
+// Kronometre uygulaması ile bir işlemin ne kadar sürdüğünü yazan program
+function kronometreUygulamasi() {
+  let baslangicZamani = Date.now();
+
+  function nekadarSurdu() {
+    let gecenZaman = Date.now() - baslangicZamani;
+    console.log(`Geçen zaman ${gecenZaman} milisaniyedir`);
+  }
+  return nekadarSurdu;
+}
+
+const Kronometre = kronometreUygulamasi();
+
+for (let i = 0; i < 500000; i++) {
+  let gecici = Math.random() * 2000;
+}
+
+Kronometre();
+
+
+// Closure Faydalari
+// 1. Memory 2. Encapsulation
