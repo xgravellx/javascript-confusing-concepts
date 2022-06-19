@@ -36,3 +36,20 @@ function addJSONdata(e) {
         .then(response => response.json())
         .then(sonuc => console.log(sonuc));
 }
+
+// async await 
+async function addJSONdata(e) {
+    e.preventDefault();
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+            title: 'deneme',
+            body: 'body alani',
+            userId: 5
+        }),
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => response.json())
+        .then(sonuc => console.log(sonuc));
+}
