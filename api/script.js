@@ -1,55 +1,33 @@
-const btnAPIdenJSONgetir = document.getElementById('btn-api-json-get');
-const btnJSONdataAdd = document.getElementById('btn-json-data-add');
+const btnTextGetir = document.getElementById('btn-text-get');
+const btnJSONGetir = document.getElementById('btn-json-data-add');
+const btnApidenJSONGetir = document.getElementById('btn-api-json-get');
+
+btnTextGetir.addEventListener('click', getText);
+btnJSONGetir.addEventListener('click', getJSON);
+btnApidenJSONGetir.addEventListener('click', getJSONfromAPI);
+
 const sonucDiv = document.getElementById('sonuc');
 
-btnAPIdenJSONgetir.addEventListener('click', getJSONfromAPI);
-btnJSONdataAdd.addEventListener('click', addJSONdata);
+function getJSON(e) {
+    
+}
+
+function getText(e) {
+    
+}
 
 function getJSONfromAPI(e) {
     e.preventDefault();
 
-    fetch ('https://jsonplaceholder.typicode.com/users')
+    fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
-        .then(sonuc => ekranaYazdir(sonuc));
+        .then(sonucx => ekranaYazdir(sonucx))
 }
 
 function ekranaYazdir(data) {
     let cikti = '';
     data.forEach(user => {
-        cikti += `<li>${user.name}</li>`
+        cikti += `<p>${user.name}<p>`
     });
     sonucDiv.innerHTML = cikti;
-}
-
-function addJSONdata(e) {
-    e.preventDefault();
-
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-            title: 'deneme',
-            body: 'body alani',
-            userId: 5
-        }),
-        headers: {'Content-Type': 'application/json'}
-    })
-        .then(response => response.json())
-        .then(sonuc => console.log(sonuc));
-}
-
-// async await 
-async function addJSONdata(e) {
-    e.preventDefault();
-
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-            title: 'deneme',
-            body: 'body alani',
-            userId: 5
-        }),
-        headers: {'Content-Type': 'application/json'}
-    })
-        .then(response => response.json())
-        .then(sonuc => console.log(sonuc));
 }
