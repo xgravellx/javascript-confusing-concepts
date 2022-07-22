@@ -10,14 +10,40 @@ btnPost.addEventListener('click', dataPost);
 btnPutPatch.addEventListener('click', dataPutPatch);
 btnAyniAndaIstek.addEventListener('click', AyniAndaIstek);
 btnHeaders.addEventListener('click', dataHeaders);
-btnHata.addEventListener('click', dataHata);
+
 
 function dataGet() {
-    console.log("get data");
+    /* axios({
+        method: 'GET',
+        url: 'https://jsonplaceholder.typicode.com/users',
+        params: {
+            _limit: 2
+        }
+    }).then(response => sonucuEkranaYazdir(response))
+        .catch(hata => console.log(hata))
+        .then(() => console.log('get isteği tamamlandı')) */
+
+    
+    axios('https://jsonplaceholder.typicode.com/users?_limit=1')
+    .then(response => sonucuEkranaYazdir(response))
+    .catch(hata => console.log(hata))
+    .then(() => console.log('get isteği tamamlandı'))
 }
 
 function dataPost() {
-    console.log("post data");
+    /* axios.post('https://jsonplaceholder.typicode.com/posts', {
+        title: 'Yeni Başlık',
+        body: 'Burası body kısmı',
+        userId: 55
+    }).then(response => sonucuEkranaYazdir(response))
+        .catch(hata => console.log(hata)) */
+
+    axios.post('https://jsonplaceholder.typicode.com/users', {
+        id: 800,
+        name: 'hazel',
+        username:'xgravellx'
+    }).then(response => sonucuEkranaYazdir(response))
+        .catch(hata => console.log(hata));
 }
 
 function dataPutPatch() {
@@ -52,7 +78,7 @@ function sonucuEkranaYazdir(response) {
     <div class='notification is-info'>
         <div class='columns is-mobile is-vcentered>
             <div class='column'><h1 class"subtitle">Sonuc</h1></div>
-            <div class='column'><h1 class"title">${response}</h1></div>
+            <div class='column'><h1 class"title">${response.status}</h1></div>
         </div>
     </div>
     
@@ -62,7 +88,7 @@ function sonucuEkranaYazdir(response) {
                 <p>Header</p>
             </div>
             <div class="message-body has-background-white has-text-dark">
-                ${response.headers}
+                <pre>${JSON.stringify(response.headers, null, 4)}</pre>
             </div>
         </article>
     </div>
@@ -73,7 +99,7 @@ function sonucuEkranaYazdir(response) {
                 <p>Data</p>
             </div>
             <div class="message-body has-background-white has-text-dark">
-                ${response.data}
+                <pre>${JSON.stringify(response.data, null, 4)}</pre>
             </div>
         </article>
     </div>
@@ -84,9 +110,8 @@ function sonucuEkranaYazdir(response) {
                 <p>Config</p>
             </div>
             <div class="message-body has-background-white has-text-dark">
-                ${response.config}
+                <pre>${JSON.stringify(response.config, null, 4)}</pre>
             </div>
         </article>
-    </div>
-    `
+    </div>`
 }
