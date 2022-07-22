@@ -88,21 +88,37 @@ function AyniAndaIstek() {
     }))
 }
 
+axios.defaults.headers.common['X-Auth-Token'] = 'apitokendegeri';
+
 function dataHeaders() {
-    console.log("headers data");
+    const config = {
+        headers: {
+            'Content-Type' : 'application/json',
+            Authorization : 'sizintokendegeriniz'
+        }
+    }
+    axios.post('https://jsonplaceholder.typicode.com/users', {
+        name: 'hazel',
+        username:'xgravellx'
+    }).then(response => sonucuEkranaYazdir(response))
+        .catch(hata => console.log(hata));
 }
 
 function dataHata() {
-    console.log("hata data");
+    axios('https://jsonplaceholder.typicode.com/userssss')
+    .then(response => sonucuEkranaYazdir(response))
+    .catch(hata => hatayiEkranaYazdir(hata))
+    .then(() => console.log('get isteği tamamlandı'))
 }
 
-function hatayiEkranaYazdir(error) {
-    console.log(error);
+function hatayiEkranaYazdir(hata) {
     document.querySelector('.sonucy').innerHTML = `
     <div class='notification is-info'>
         <div class='colums is-mobile is-vcentered>
             <div class='column'><h1 class"subtitle">Sonuc</h1></div>
-            <div class='column'><h1 class"title">${error}</h1></div>
+            <div class='column'><h1 class"title">
+                <pre>${JSON.stringify(hata.response.status, null, 2)}</pre>
+            </h1></div>
         </div>
     </div>`
 }
