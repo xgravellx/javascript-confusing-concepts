@@ -1,6 +1,7 @@
 const btnGet = document.getElementById('get');
 const btnPost = document.getElementById('post');
 const btnPutPatch = document.getElementById('put-patch');
+const btnDelete = document.getElementById('delete');
 const btnAyniAndaIstek = document.getElementById('ayni-anda-istek');
 const btnHeaders = document.getElementById('headers');
 const btnHata = document.getElementById('hata');
@@ -8,6 +9,7 @@ const btnHata = document.getElementById('hata');
 btnGet.addEventListener('click', dataGet);
 btnPost.addEventListener('click', dataPost);
 btnPutPatch.addEventListener('click', dataPutPatch);
+btnDelete.addEventListener('click', dataDelete);
 btnAyniAndaIstek.addEventListener('click', AyniAndaIstek);
 btnHeaders.addEventListener('click', dataHeaders);
 
@@ -39,7 +41,6 @@ function dataPost() {
         .catch(hata => console.log(hata)) */
 
     axios.post('https://jsonplaceholder.typicode.com/users', {
-        id: 800,
         name: 'hazel',
         username:'xgravellx'
     }).then(response => sonucuEkranaYazdir(response))
@@ -47,11 +48,44 @@ function dataPost() {
 }
 
 function dataPutPatch() {
-    console.log("put patch data");
+    /* axios.put('https://jsonplaceholder.typicode.com/users/1', {
+        name: 'hazel',
+        username:'xgravellx',
+        email: 'hazal.yilmazx@hotmail.com'
+    }).then(response => sonucuEkranaYazdir(response))
+        .catch(hata => console.log(hata)); */
+
+    axios.patch('https://jsonplaceholder.typicode.com/users/1', {
+        name: 'hazel',
+        username:'xgravellx',
+        email: 'hazal.yilmazx@hotmail.com'
+    }).then(response => sonucuEkranaYazdir(response))
+        .catch(hata => console.log(hata));
+}
+
+function dataDelete() {
+    axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+    .then(response => sonucuEkranaYazdir(response))
+    .catch(hata => console.log(hata))
 }
 
 function AyniAndaIstek() {
-    console.log("aynı anda istek data");
+    /* axios.all([
+        axios.get('https://jsonplaceholder.typicode.com/users'),
+        axios.get('https://jsonplaceholder.typicode.com/posts'),
+    ]).then(response => {
+        console.log(response[0].data);
+        console.log(response[1].data);
+        sonucuEkranaYazdir(response[0]);
+    }) */
+
+    axios.all([
+        axios.get('https://jsonplaceholder.typicode.com/users?_limit=1'),
+        axios.get('https://jsonplaceholder.typicode.com/posts?_limit=1')
+    ]).then(axios.spread((kullanicilar, postlar) => {
+        console.log(kullanicilar.data);
+        console.log(postlar.data);
+    }))
 }
 
 function dataHeaders() {
